@@ -9,7 +9,7 @@ class DefaultController extends Controller
 {
   //Hemos modificado la anotación de la ruta
     /**
-     * @Route("/Blog")
+     * @Route("/blog")
      */
     public function indexAction()
     {
