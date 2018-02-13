@@ -1,0 +1,10 @@
+app:
+    path: /
+    defaults: { _controller:AppBundle:Default:index}
+edad:
+    path: /year/{year}
+    defaults: { _controller:AppBundle:Year:Calcular}
+
+edadVacia:
+    path: /year
+    defaults: { _controller:AppBundle:Year:vacio}
