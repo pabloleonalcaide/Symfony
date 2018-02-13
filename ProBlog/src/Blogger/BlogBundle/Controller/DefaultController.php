@@ -13,6 +13,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('@BloggerBlog/index.html.twig');  //de este modo referenciamos al bundle que hemos creado
+        return $this->render('@BloggerBlog/Default/index.html.twig');  //de este modo referenciamos al bundle que hemos creado
     }
 }
