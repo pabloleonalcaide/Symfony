@@ -7,6 +7,9 @@
     <header>
         <h1>Contact symblog</h1>
     </header>
-
     <p>Want to contact symblog?</p>
+    {{form_start(form,{'action':'','method':'POST'})}}
+    {{form_widget(form)}}
+    {{form_errors(form)}}
+    {{form_end(form)}}
 {% endblock %}
