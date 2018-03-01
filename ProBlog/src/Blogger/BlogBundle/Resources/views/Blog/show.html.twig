@@ -1,0 +1,15 @@
+{% extends '@BloggerBlog/layout.html.twig' %}
+{% block title %}
+  {{ blog.title }}
+{% endblock %}
+{% block body %}
+  {{ blog.created|date('l, F j, Y') }}<br>
+  {{ blog.title }}<br>
+  {{ blog.blog() }}
+  <hr><p>Comentarios: </p>
+  {{
+    render(controller(
+      "Blogger\\BlogBundle\\Controller\\page\\CommentController::newAction",{'blog_id': blog.id}))
+  }}
+  {% include '@BloggerBlog/Comment/index.html.twig' with {'comments':comments} %}
+{% endblock %}

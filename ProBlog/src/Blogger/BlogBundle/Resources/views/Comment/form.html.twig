@@ -1,0 +1,7 @@
+{{ form_start(form, {'action':path('comment',
+                                    {'blog_id' : comment.blog.id}),
+                    'method': 'POST'}
+              )
+}}
+{{form_widget(form)}}
+{{form_end(form)}}

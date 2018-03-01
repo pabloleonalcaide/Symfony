@@ -3,9 +3,17 @@
 {% extends '@BloggerBlog/layout.html.twig' %}
 
 {% block body %}
-    Pablo León Alcaide: Blog homepage
+    {% for blog in blogs%}
+      <li>{{blog.title}}</li>
+      <img src="{{asset(["images/",blog.image]|join)}}" />
+        <div class="snippet">
+          <p>{{blog.blog(500)}}</p>
+          <p class="continue"><a href="{{path("show",{"id":blog.id})}}">Continue</a>
+        </div>
+
+    {% endfor%}
 {% endblock %}
-	
+
 {% block sidebar %}
     Sidebar content
 {% endblock %}
