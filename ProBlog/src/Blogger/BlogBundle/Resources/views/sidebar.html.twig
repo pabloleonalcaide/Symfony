@@ -1,0 +1,15 @@
+{# src/Blogger/BlogBundle/Resources/views/Page/sidebar.html.twig #}
+Tag Cloud
+{% for tag, weight in tags %}
+  {{ tag }}
+{% else %}
+  There are no tags
+{% endfor %}
+
+Latest Comments
+{% for comment in latestComments %}
+  {{ comment.user }} commented on {{ comment.blog.title }}
+  {{ comment.comment }}
+{% else %}
+  There are no recent comments
+{% endfor %}

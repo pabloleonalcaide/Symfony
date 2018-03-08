@@ -12,7 +12,7 @@ class BlogController extends Controller
 public function showAction($id){
   $em = $this->getDoctrine()->getManager();
   $blog = $em->getRepository("BloggerBlogBundle:Blog")->find($id);
-  $comments = $em->getRepository("BloggerBlogBundle:Comment")->getCommentsForBlog($id);
+  $comments = $em->getRepository("BloggerBlogBundle:Comment")->getCommentsForBlog($blog->getId());
   if(!$blog){
     throw $this->createNotFoundException('Unable to find the post');
   }

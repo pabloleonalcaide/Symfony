@@ -14,8 +14,7 @@ class CommentRepository extends EntityRepository{
     if(false=== is_null($approved))
       $qb ->andWhere('c.approved = :approved')
             ->setParameter('approved', $approved);
-    return $qb ->getQuery();
+    return $qb ->getQuery()->getResult();
   }
-
 }
 ?>

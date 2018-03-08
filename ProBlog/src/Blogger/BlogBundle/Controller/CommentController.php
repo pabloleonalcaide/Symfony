@@ -1,7 +1,7 @@
 <?php
 // src/Blogger/BlogBundle/Controller/CommentController.php
 
-namespace Blogger\BlogBundle\Controller\page;
+namespace Blogger\BlogBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Blogger\BlogBundle\Entity\Comment;
@@ -11,13 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Comment controller.
  */
-class CommentController extends Controller
-{
-/*
- public function getRequest(){
-    return $this->container->get('request_stack')->getCurrentRequest();
-  }
-*/
+class CommentController extends Controller{
+
    public function newAction($blog_id){
         $blog = $this->getBlog($blog_id);
         $comment = new Comment();
@@ -32,8 +27,7 @@ class CommentController extends Controller
     /**
     * @Route("/blog/comment/{blog_id}", name="comment", requirements={"id"="\d+"})
     */
-    public function createAction($blog_id, Request $request)
-    {
+    public function createAction($blog_id, Request $request){
         $blog = $this->getBlog($blog_id);
         $comment  = new Comment();
         $comment->setBlog($blog);
@@ -45,7 +39,7 @@ class CommentController extends Controller
                        ->getManager();
             $em->persist($comment);  //con persist y flush persistimos en la base de datos
             $em->flush();
-            return $this->redirect($this->generateUrl('show', array(  //lo renderizamos
+            return $this->redirect($this->generateUrl('show', array(
                     'id' => $comment->getBlog()->getId())) .
                     '#comment-' . $comment->getId()
             );
@@ -57,11 +51,9 @@ class CommentController extends Controller
         ));
     }
 
-    protected function getBlog($blog_id)
-    {
+    protected function getBlog($blog_id){
         $em = $this->getDoctrine()
                     ->getManager();
-
         $blog = $em->getRepository('BloggerBlogBundle:Blog')->find($blog_id);
         if (!$blog){
             throw $this->createNotFoundException('Unable to find Blog post.');

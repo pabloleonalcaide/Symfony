@@ -6,7 +6,27 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
 * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Repository\CommentRepository")
- * @ORM\Table(name="comment")
+ * @ORM\Table(name="comment")<?php
+namespace Blogger\BlogBundle\Repository;
+use Doctrine\ORM\EntityRepository;
+
+class CommentRepository extends EntityRepository{
+
+  public function getCommentsForBlog($blogId, $approved = true){
+    $qb = $this->createQueryBuilder('c')
+                ->select('c')
+                ->where('c.blog = :blog_id')
+                ->addOrderBy('c.created')
+                ->setParameter('blog_id',$blogId);
+
+    if(false=== is_null($approved))
+      $qb ->andWhere('c.approved = :approved')
+            ->setParameter('approved', $approved);
+    return $qb ->getQuery()->getResult();
+  }
+}
+?>
+
  * @ORM\HasLifecycleCallbacks
  */
 class Comment
@@ -17,64 +37,52 @@ class Comment
   * @ORM\GeneratedValue(strategy="AUTO")
   */
     protected $id;
-
     /**
      * @ORM\Column(type="string")
      */
     protected $user;
-
     /**
      * @ORM\Column(type="text")
      */
     protected $comment;
-
     /**
      * @ORM\Column(type="boolean")
      */
     protected $approved;
-
     /**
      * @ORM\ManyToOne(targetEntity="Blog", inversedBy="comments")
      * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
      */
     protected $blog;
-
     /**
      * @ORM\Column(type="datetime")
      */
     protected $created;
-
     /**
      * @ORM\Column(type="datetime")
      */
     protected $updated;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->setCreated(new \DateTime());
         $this->setUpdated(new \DateTime());
         $this->setApproved(true);
     }
-
     /**
     * @ORM\PreUpdate
     */
-    public function setUpdatedValue()
-    {
+    public function setUpdatedValue(){
        $this->setUpdated(new \DateTime());
     }
-
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId(){
         return $this->id;
     }
-
     /**
      * Set user
      *
@@ -82,10 +90,8 @@ class Comment
      *
      * @return Comment
      */
-    public function setUser($user)
-    {
+    public function setUser($user){
         $this->user = $user;
-
         return $this;
     }
 
@@ -94,8 +100,7 @@ class Comment
      *
      * @return string
      */
-    public function getUser()
-    {
+    public function getUser(){
         return $this->user;
     }
 
@@ -106,10 +111,8 @@ class Comment
      *
      * @return Comment
      */
-    public function setComment($comment)
-    {
+    public function setComment($comment){
         $this->comment = $comment;
-
         return $this;
     }
 
@@ -118,8 +121,7 @@ class Comment
      *
      * @return string
      */
-    public function getComment()
-    {
+    public function getComment(){
         return $this->comment;
     }
 
@@ -130,10 +132,8 @@ class Comment
      *
      * @return Comment
      */
-    public function setApproved($approved)
-    {
+    public function setApproved($approved){
         $this->approved = $approved;
-
         return $this;
     }
 
@@ -142,8 +142,7 @@ class Comment
      *
      * @return boolean
      */
-    public function getApproved()
-    {
+    public function getApproved(){
         return $this->approved;
     }
 
@@ -154,10 +153,8 @@ class Comment
      *
      * @return Comment
      */
-    public function setCreated($created)
-    {
+    public function setCreated($created){
         $this->created = $created;
-
         return $this;
     }
 
@@ -166,8 +163,7 @@ class Comment
      *
      * @return \DateTime
      */
-    public function getCreated()
-    {
+    public function getCreated(){
         return $this->created;
     }
 
@@ -202,10 +198,8 @@ class Comment
      *
      * @return Comment
      */
-    public function setBlog(\Blogger\BlogBundle\Entity\Blog $blog = null)
-    {
+    public function setBlog(\Blogger\BlogBundle\Entity\Blog $blog = null){
         $this->blog = $blog;
-
         return $this;
     }
 
@@ -214,8 +208,7 @@ class Comment
      *
      * @return \Blogger\BlogBundle\Entity\Blog
      */
-    public function getBlog()
-    {
+    public function getBlog(){
         return $this->blog;
     }
 }

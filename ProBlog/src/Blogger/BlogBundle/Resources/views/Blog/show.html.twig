@@ -9,7 +9,7 @@
   <hr><p>Comentarios: </p>
   {{
     render(controller(
-      "Blogger\\BlogBundle\\Controller\\page\\CommentController::newAction",{'blog_id': blog.id}))
+      "Blogger\\BlogBundle\\Controller\\CommentController::newAction",{'blog_id': blog.id}))
   }}
   {% include '@BloggerBlog/Comment/index.html.twig' with {'comments':comments} %}
 {% endblock %}

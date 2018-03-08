@@ -1,5 +1,5 @@
 blogger_blog:
-    resource: "@BloggerBlogBundle/Controller/page"
+    resource: "@BloggerBlogBundle/Controller/"
     type:     annotation
 
 app:
